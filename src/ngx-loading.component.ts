@@ -8,6 +8,8 @@ import { ILoadingConfig, LoadingConfig, ANIMATION_TYPES } from './ngx-loading.co
     template: `
         <div *ngIf="show" class="backdrop" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}" [ngStyle]="{'border-radius': loadingConfig?.backdropBorderRadius, 'background-color': loadingConfig?.backdropBackgroundColour}"></div>
         <div *ngIf="show">
+            <div class="text"> {{ text }}</div>
+
             <div class="spinner-circle" *ngIf="getAnimationType(loadingConfig?.animationType) === ANIMATION_TYPES.circle" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}" 
             [ngStyle]="{'border-top-color': loadingConfig?.secondaryColour, 'border-right-color': loadingConfig?.secondaryColour, 'border-bottom-color': loadingConfig?.secondaryColour, 'border-left-color': loadingConfig?.primaryColour}"></div>
 
@@ -72,7 +74,21 @@ import { ILoadingConfig, LoadingConfig, ANIMATION_TYPES } from './ngx-loading.co
                 background-color: rgba(0, 0, 0, 0.3);
             }
 
-
+            .text {
+                color: white;
+                font-size: 1.5rem;
+                font-weight: 500;
+                width: 100%;
+                text-align: center;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 20px;
+                margin: auto;
+                z-index: 2000;
+            }
 
             /* Spinner Circle styles */
 
@@ -816,6 +832,7 @@ import { ILoadingConfig, LoadingConfig, ANIMATION_TYPES } from './ngx-loading.co
 })
 export class LoadingComponent implements OnInit {
     @Input() show: boolean;
+    @Input() text: string;
     @Input() config: ILoadingConfig = new LoadingConfig();
 
     public ANIMATION_TYPES = ANIMATION_TYPES;
